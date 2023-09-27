@@ -1,0 +1,33 @@
+import requests
+from pprint import pprint
+
+url = 'https://api.hgbrasil.com/weather'
+response = requests.get(url)          # Realiza a requisição GET à API
+
+# Verifica se a requisição foi bem-sucedida (código 200)
+if response.status_code == 200:
+    requisição_dic = response.json()  
+
+    # todas informações que seram passadas 
+    cidade = str(requisição_dic["results"]["city_name"])
+    cidade_estado = str(requisição_dic["results"]["city"])
+    data_consulta = str(requisição_dic["results"]["date"])
+    hora_consulta = str(requisição_dic["results"]["time"])
+    condição_tempo = str(requisição_dic["results"]["description"])
+    temperatura = int(requisição_dic["results"]["temp"])
+    umidade = int(requisição_dic["results"]["humidity"])
+    nascer_sol = str(requisição_dic["results"]["sunrise"])
+    por_sol = str(requisição_dic["results"]["sunset"])
+    velocidade_vento = str(requisição_dic["results"]["wind_speedy"])
+
+    print('Hora',hora_consulta,'   Data',data_consulta)
+    print(cidade_estado)
+    print('Condição do clima:',condição_tempo)
+    print('Temperatura:',temperatura,'C°')
+    print('Umidade:',umidade,'%')
+    print('Horário nascer do Sol:',nascer_sol)
+    print('Horário por do Sol:',por_sol)
+    print('Velocidade do vento:',velocidade_vento)
+
+else:
+    print("Falha na requisição. Código de status:", response.status_code)
